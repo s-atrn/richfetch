@@ -24,7 +24,7 @@
 
 ## Installation
 ```bash
-git clone https://github.com/Rizen54/richfetch
+git clone https://github.com/s-atrn/richfetch
 cd richfetch/
 python3 -m pip install -r requirements.txt
 chmod +x richfetch.py
