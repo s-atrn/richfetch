@@ -99,7 +99,10 @@ def get_cpu_temperature() -> float | None:
         "acpitz",
     ]
 
-    all_temperatures: dict[str, psutil.shwtemp] = psutil.sensors_temperatures()
+    sensors_reader = getattr(psutil, "sensors_temperatures", None)
+    all_temperatures: dict[str, psutil.shwtemp] | None = (
+        sensors_reader() if sensors_reader is not None else None
+    )
     if all_temperatures is None:
         return None
 
@@ -300,7 +303,7 @@ def get_system_info() -> dict[str, typing.Any]:
 
     # Username and hostname
     username: str = os.getlogin()
-    hostname: str = os.uname().nodename
+    hostname: str = socket.gethostname()
 
     # Uptime calculation
     uptime_seconds: float = psutil.boot_time()
